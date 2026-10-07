@@ -7,6 +7,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_classic.chains import RetrievalQA
+from langchain_community.document_loaders import PyPDFLoader
 
 # load environment variables from .env file
 load_dotenv()
@@ -24,7 +25,8 @@ llm = ChatGroq(
 
 def process_documents_to_chromadb(filename):
     # Load the PDF document using UnstructuredPDFLoader
-    loader = UnstructuredPDFLoader(f"{working_dir}/{filename}")
+    loader = PyPDFLoader(f"{working_dir}/{filename}")
+    #loader = UnstructuredPDFLoader(f"{working_dir}/{filename}")
     documents = loader.load()
 
     # Split text into chunks for embedding
